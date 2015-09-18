@@ -1,0 +1,13 @@
+# Resize 50GB = 50 x 1024B = 51200
+vboxmanage clonehd "source.vmdk" "cloned.vdi" --format vdi
+(vboxmanage clonehd /home/waldyd/VirtualBox\ VMs/Windows\ XP\ Profesional/Windows\ XP\ Profesional\ .vmdk /home/waldyd/VirtualBox\ VMs/Windows\ XP\ Profesional/Windows\ XP\ Profesional.vdi --format vdi)
+vboxmanage modifyhd "cloned.vdi" --resize 51200
+(vboxmanage modifyhd Windows\ XP\ Profesional.vdi --resize 20480)
+vboxmanage clonehd "cloned.vdi" "resized.vmdk" --format vmdk
+
+# Create VDI or VDMK from dd image
+VBoxManage convertfromraw --format VDI <*.img> <*.vdi>
+VBoxManage convertfromraw --format VMDK <*.img> <*.vmdk>
+
+# Convert to the RAW image:
+VBoxManage clonehd <*.vdi> <*.raw> --format RAW

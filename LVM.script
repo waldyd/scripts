@@ -1,0 +1,20 @@
+# List Physical Volumes
+sudo pvs
+# See Volumes Info
+sudo lvdisplay /dev/VolGroup
+
+# Mount unmount VG (Volume Group)
+sudo vgchange -ay			#mount
+sudo vgchange -an <vgname>		#unmount
+
+# Mount dd LVM image
+sudo kpartx -av <LVM-image-file> 	# see partx
+sudo pvs
+
+sudo mount /dev/mapper/VolGroup<as pvs showed> /<mount dir>/
+# unmount LVM
+sudo vgchange -an VolGroup00
+sudo kpartx -dv /mnt/node01.img
+
+# LV (logical Volume status)
+sudo lvscan 

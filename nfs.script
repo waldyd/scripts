@@ -1,0 +1,10 @@
+# Conf
+/etc/exports
+
+# Export filesystems in /etc/exports
+sudo exportfs -a
+
+#  show mount information for an NFS server
+showmount
+## Show exports for an NFS Server
+showmount -e 192.168.0.1

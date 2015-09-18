@@ -1,0 +1,2 @@
+# Archivos modificados hace 6 dias, listado con formato específico
+find /mnt/ -name *.tif* -mtime 6 -printf '%p \t\t %t \n' > 'archivos caida base de datos.txt'

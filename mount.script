@@ -1,0 +1,19 @@
+# mount dd image
+file harddrive.img #verify startsector
+# mount harddrive /mnt/temp
+# mount: you must specify the filesystem type
+fdisk -l harddrive.img
+# Since we need to scoot 63 sectors ahead, and each sector is 512 bytes long, we need to use an offset of 32,256 bytes
+mount -o ro,loop,offset=32256 harddrive.img /mnt/loop
+mount | grep harddrive.img
+# repair the filesystem first
+losetup --offset 32256 /dev/loop2 harddrive.img
+fsck /dev/loop2
+# mount the loop device
+mount /dev/loop2 /mnt/loop
+
+# Mount dd LVM image
+sudo kpartx -av <LVM-image-file>
+sudo pvs
+sudo mount /dev/mapper/VolGroup<as pvs showed> /<mount dir>/
+

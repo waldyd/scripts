@@ -1,0 +1,96 @@
+# Install
+ sudo yum install ruby
+ sudo yum install ruby-devel
+
+# Rails
+ sudo gem update
+ sudo gem install rails
+
+# Heroku
+ sudo gem install heroku
+
+ sudo yum install postgresql-devel
+ sudo gem install pg
+
+ su - postgres
+# Then create a user (or a "role", as Postgres calls it):
+create role <myapp> with createdb login password 'password1'
+createuser uk-chauffeur --login --pwprompt --createdb
+createdb --owner=uk-chauffeur  uk-chauffeur_development
+
+rails new <myapp> --database=postgresql
+
+#New aplication
+rails new <path>
+
+# Install Gems for an App
+bundle install
+
+# See gems of an App
+bundle show
+
+## GIT
+# See configuration
+git config --list
+
+# init git repo (on proyect folder)
+git init
+
+# add all c files to git repository
+git add *.c
+git commit -m 'initial project version'
+
+# status of files
+git status
+
+# Upload (from proyect folder)
+	# If first time then Add a remote repo
+	git remote add <repo name> <repo url> #https://github.com/waldyd/fileupload.git
+	# sync repos
+	git pull <repo name> master
+git add . #Add all files (.) to upload commit
+git commit -m '<initial commit name>'
+git push <repo name> master
+
+# See configured remote servers
+git remote
+
+#Add a remote repo
+git remote add <repo name> <repo url> #https://github.com/waldyd/fileupload.git
+#New aplication
+rails new <path>
+
+# Install Gems for an App
+bundle install
+
+# See gems of an App
+bundle show
+
+## GIT
+# See configuration
+git config --list
+
+# init git repo (on proyect folder)
+git init
+
+# add all c files to git repository
+git add *.c
+git commit -m 'initial project version'
+
+# status of files
+git status
+
+# Upload (from proyect folder)
+	# If first time then Add a remote repo
+	git remote add <repo name> <repo url> #https://github.com/waldyd/fileupload.git
+	# sync repos
+	git pull <repo name> master
+git add . #Add all files (.) to upload commit
+git commit -m '<initial commit name>'
+git push <repo name> master
+
+# See configured remote servers
+git remote
+
+#Add a remote repo
+git remote add <repo name> <repo url> #https://github.com/waldyd/fileupload.git

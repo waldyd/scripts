@@ -1,0 +1,12 @@
+# JPEG
+djpeg -pnm -gray text.jpg | gocr -
+
+# TIFF
+## PDF to TIFF
+gs  -sDEVICE=tiffg4 -r300x300 -o a.tif a.pdf 
+
+# OCR
+## GOCR
+tifftopnm a.tif | gocr -
+## TESSERACT (Spanish)
+tesseract a.tif <output file without extension> -l spa

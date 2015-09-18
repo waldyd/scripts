@@ -1,0 +1,13 @@
+# man firewall-cmd
+firewall-cmd --get-zones
+firewall-cmd --get-default-zone
+firewall-cmd --get-active-zones
+
+sudo firewall-cmd --list-all
+## List Active Services
+sudo firewall-cmd --list-services
+## List Available Services
+sudo firewall-cmd --get-services
+## Add Service
+sudo firewall-cmd --add-service=vnc-server
+sudo firewall-cmd --permanent --add-service=vnc-server

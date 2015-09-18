@@ -1,0 +1,10 @@
+# gnome-shell high cpu
+sudo systemctl restart gdm.service
+
+# gnome-shell frozen because of vmware
+sudo killall -9 gnome-shell
+
+# Remote GNOME Session
+ssh -C -X <remote-machine-IP>
+xinit -- :1
+gnome-session

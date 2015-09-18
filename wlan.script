@@ -1,0 +1,40 @@
+# Broadcom b43 driver
+#[  227.291979] b43-phy0: Broadcom 4312 WLAN found (core revision 15)
+#[  227.318126] b43-phy0: Found PHY: Analog 6, Type 5 (LP), Revision 1
+#[  227.391564] b43-phy0 ERROR: Firmware file "b43/ucode15.fw" not found
+#[  227.394802] b43-phy0 ERROR: Firmware file "b43-open/ucode15.fw" not found
+#[  227.398125] b43-phy0 ERROR: You must go to http://wireless.kernel.org/en/users/Drivers/b43#devicefirmware and download the correct firmware for this driver version. Please carefully read all instructions on this website.
+
+lspci -vnn -d 14e4:
+#
+su -
+yum install b43-fwcutter wget
+#
+export FIRMWARE_INSTALL_DIR="/lib/firmware"
+wget http://www.lwfinger.com/b43-firmware/broadcom-wl-5.100.138.tar.bz2
+tar xjf broadcom-wl-5.100.138.tar.bz2
+sudo b43-fwcutter -w "$FIRMWARE_INSTALL_DIR" broadcom-wl-5.100.138/linux/wl_apsta.o
+#o unload all known drivers (you can pick only one command, if you know which driver is in use) perform:
+modprobe -r b43 bcma
+modprobe -r brcmsmac bcma
+modprobe -r wl
+
+#Load driver
+modprobe b43
+modprobe brcmsmac
+modprobe wl
+
+# Signal Strenght
+while : ; do iwlist wlan0 scan | grep -E 'Signal'; sleep 0.1; done;
+
+# Speed Test
+wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip
+
+# Connect CLI
+nmcli dev wifi connect Guillermo*.
+
+nmcli con list
+nmcli con up uuid cab47f98-db25-44fe-8352-d196ffde03c4
+
+# Public IP
+ifconfig $1 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}'

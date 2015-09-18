@@ -1,0 +1,5 @@
+# Config interface
+sudo vi /etc/sysconfig/network-scripts/ifcfg-<connection name>
+sudo nmcli connection up id <connection name>
+sudo nmcli connection down id <connection name>
+sudo systemctl restart network.service #sudo service network restart

@@ -1,0 +1,14 @@
+# RAMS
+## RAMS Building
+cd /tmp/rams60/build/60
+vi paths.mk
+vi objects.mk
+vi include.mk.*
+vi Makefile
+
+make OPT=opt
+
+# Build ncarg dummy library
+cd /opt/rams60/src/utils/2.4/ncargd
+f90 -c ncarg_dummy.f90
+ar rs libncarg-2.4.a ncarg_dummy.o

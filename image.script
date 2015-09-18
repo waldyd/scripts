@@ -1,0 +1,3 @@
+# Compress
+convert -compress JPEG DSC03876.JPG -quality 10% DSC03876_10.JPG
+time for i in *.jpg ; do convert -compress JPEG $i -quality 10% compressed/$i ; done

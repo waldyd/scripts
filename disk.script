@@ -1,0 +1,75 @@
+# Disk Format
+## Check Disk
+fdisk -l /dev/sd<disk id>
+## Create Partition
+fdisk /dev/sd<disk id>
+## Format Disk
+mkfs /dev/sd<disk id><partition#>
+
+# Badblocks
+sudo badblocks -s /dev/mapper/fedora-home
+
+# Mount LUKS Encrypted
+## List Encrypted partitions
+blkid | grep crypto
+## Open encrypted partition
+sudo cryptsetup luksOpen </dev/sda1> <luks-fedora>
+##
+vgscan --mknodes
+vgchange -ay
+(vgrename)
+##
+mkdir </mnt/luks-fedora>
+mount <dev/mapper/luks-fedora> </mnt/luks-fedora>
+
+# Format USB
+mkfs -t <type> -n <name> </dev/sdd>
+
+# Disk Access Speed
+sudo hdparm -tT /dev/sdb2
+
+# S.M.A.R.T
+## Current Status Info
+smartctl -a /dev/hdg
+## Long test
+sudo smartctl -t short /dev/sdb2
+
+# MBR
+## Backup
+### MBR Only (Loader: i.e. GRUB) 
+dd if=/dev/<sda> of=/<path>/MBR.iso bs=446 count=1
+### MBR + Partition Table
+dd if=/dev/<sda> of=/<path>/MBR.iso bs=512 count=1
+#### Generate Partition Table
+fdisk /dev/<sda>
+#### List Partition Table
+fdisk -l /dev/<sda>
+
+# Repair
+sudo fsck /dev/<sdc>
+testdisk /dev/<sdc>
+
+## Recreate initramsfs (solve booting issues)
+sudo dracut <*.img> <kernel version>
+(sudo dracut initramfs-3.14.8-100.fc19.i686.img 3.14.8-100.fc19.i686)
+
+# adjust tunable filesystem parameters
+## List Superblock
+sudo tune2fs -l /dev/sda2
+
+# Mount a partition from whole disk (dd ddrescue) image
+file <image file>
+## Partition type
+fdisk -l <image file>
+## startsector 63 in file's output ->  63 sectors * 512 bytes/sector = 32256 bytes from the beginning of the disk.
+mount -o loop,offset=32256 [-t <partition type>] <image file> <mount point> 
+### if need to recover from errors
+(losetup --offset 32256 /dev/loop0 /run/media/waldyd/backup/usb.iso)
+fsck /dev/loop0
+mount /dev/loop0 <mount point>
+
+
+# Free Space
+du -h | grep '\.[0-9]G'
+## Disk Usage Analyzer
+baobab

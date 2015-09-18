@@ -1,0 +1,8 @@
+# See selinux context
+ls -Z /var/lib/tftpboot/bzImage
+ls -dZ - /etc/
+# Change file type
+chcon -t type file-name
+
+# Search /var/log/audit/audit.log messages
+sudo ausearch -m avc --start [recent|today|...]

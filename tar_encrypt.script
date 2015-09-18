@@ -1,0 +1,13 @@
+#encrypt:
+tar -cjv <directory> | openssl des3 -salt > <encrypted.tarfile>
+(tar -cjv /home/waldyd/ | openssl des3 -salt > /run/media/waldyd/Datos/Backup/waldyd\ 13-03-2014.tar.bz)
+
+#decrypt:
+## extract all
+cat <encrypted.tarfile> | openssl des3 -d -salt | tar -xvj
+
+## extract specific file 
+cat /run/media/waldyd/Datos/Backup/waldyd\ 16-12-2013.tar.bz | openssl des3 -d -salt | tar -xvj home/waldyd/.sqldeveloper
+
+## List files
+(cat /run/media/waldyd/Datos/Backup/waldyd\ 09-05-2013.tar.bz | openssl des3 -d -salt | tar -tvj)

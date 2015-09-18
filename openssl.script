@@ -1,0 +1,16 @@
+#X.509
+## DER to CER
+openssl x509 -inform der -in /run/media/waldyd/LIVE/otro/sitam.der -out /run/media/waldyd/LIVE/otro/sitam.cer
+
+## Read DER
+openssl x509 -in /run/media/waldyd/LIVE/otro/sitam.cer -inform DER -noout -text
+
+#PKCS12
+## Read Key from .pfx
+openssl pkcs12 -in /run/media/waldyd/LIVE/otro/sitam.pfx -nocerts -nodes
+
+#PKCS7
+## Read 
+openssl pkcs7 -print_certs -in /run/media/waldyd/LIVE/otro/certnew.p7b -text -noout
+## Read Windows P7B
+openssl pkcs7 -inform DER -in /run/media/waldyd/LIVE/otro/certnew.p7b -print_certs -text -noout

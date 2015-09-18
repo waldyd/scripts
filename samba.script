@@ -1,0 +1,7 @@
+# List
+smbclient -L //ammovilidad/actualizacion/ -W areametro -U nestor.alvarez
+# Access Share
+smbclient //ammovilidad/actualizacion/ -W areametro -U nestor.alvarez
+
+# mount samba share
+sudo mount.cifs //amdocumental01/tramites /mnt/ -o username=nestor.alvarez,domain=areametro

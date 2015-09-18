@@ -1,0 +1,43 @@
+# Compile Kernel
+dnf install fedpkg fedora-packager rpmdevtools ncurses-devel
+# if you plan to run 'make xconfig'
+dnf install qt3-devel libXi-devel gcc-c++
+# Prepare an RPM package-building environment in your (non-root) home directory. This command creates a new directory ~/rpmbuild, with several empty subdirectories including SPECS, SOURCES, BUILD and others. It also creates an initial ~/.rpmmacros customization file for you
+rpmdev-setuptree
+# Download the kernel-<version>.src.rpm file
+dnf download --source kernel
+# Install & build dependencies for the kernel source
+sudo dnf builddep kernel-<version>.src.rpm
+# Install the RPM contents into ${HOME}/rpmbuild/SOURCES and ${HOME}/rpmbuild/SPECS.
+rpm -Uvh kernel-<version>.src.rpm
+# Prepare the kernel source tree 
+dnf install numactl-devel pesign
+cd ~/rpmbuild/SPECS
+rpmbuild -bp --target=$(uname -m) kernel.spec #The unloaded and patched kernel source tree is now located in the ~/rpmbuild/BUILD/kernel-<version>/linux-<version>.<arch> directory
+
+# Configure Kernel Options
+cd ~/rpmbuild/BUILD/kernel-$ver.$fedver/linux-$ver.$subver.$fedver.$arch/ 
+(cd ~/rpmbuild/BUILD/kernel-4.1.fc22/linux-4.1.3-200.fc22.x86_64/)
+#make config		#- starts a character based questions and answer session
+make menuconfig 	#- starts a terminal-oriented configuration tool (using ncurses)
+#make xconfig 		#- starts a X based configuration tool
+# Prepare Build Files
+cd ~/rpmbuild/SPECS
+vi kernel.spec
+#Change this line #% define buildid .local for %define buildid .<custom_text>
+
+# Build the New Kernel
+#make all
+#make modules_install
+make clean all && make ARCH=x86_64 bzImage
+#Kernel Compilation may take between 15 minutes and 2 hours depending on the speed of your system. After installation, the kernel can be found at the actual folder named as vmlinux . The kernel bzImage can be found under the ./arch/<arch>/boot/ folder.
+
+# to remove the Kernel Source code (after copying the kernel with its bzImage and verifying that it works, use the following command:
+sudo rpmbuild --clean ~/SPECS/kernel-<kernel-version>.spec
+
+# Build the New Kernel RPM
+rpmbuild -bb --target=`uname -m` kernel.spec
+# To disable specific kernel flavors from the build (for a faster build). Valid values for "option" above include xen, smp, up, pae, kdump, debug and debuginfo. Specifying --without debug strips out some debugging code from the kernels, where specifying --without debuginfo disables the building of the kernel-debuginfo packages.
+rpmbuild -bb --without <option> --target=`uname -m` kernel.spec
+# To specify that only a specific kernel should be built. Valid values for "option" above include xenonly, smponly, and baseonly.
+rpmbuild -bb --with <option> --target=`uname -m` kernel.spec

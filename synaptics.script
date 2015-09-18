@@ -1,0 +1,3 @@
+#!/bin/bash
+# /usr/share/X11/xorg.conf.d/50-synaptics.conf
+synclient VertEdgeScroll=1 HorizEdgeScroll=1

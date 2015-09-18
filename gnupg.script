@@ -1,0 +1,4 @@
+# Check file integrity
+gpg --list-packets key
+gpg --recv-keys <key-id>
+gpg --verify gnupg-2.0.28.tar.bz2.sig gnupg-2.0.28.tar.bz2

@@ -1,0 +1,18 @@
+# Passwordless SSH
+mkdir -p $HOME/.ssh
+chmod 0700 $HOME/.ssh
+ssh-keygen -t dsa -f $HOME/.ssh/id_dsa -P ''
+scp .ssh/id_dsa.pub node01.cluster:~
+
+## Server
+cat id_dsa.pub >> $HOME/.ssh/authorized_keys2
+chmod 0600 $HOME/.ssh/authorized_keys2
+cd $HOME/.ssh && ln -s authorized_keys2 authorized_keys
+
+## Client
+ssh -i $HOME/.ssh/id_dsa server
+chmod 0600 .ssh/config
+vi .ssh/config
+### $HOME/.ssh/config
+	Host <server>
+		IdentityFile ~/.ssh/id_dsa

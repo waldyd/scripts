@@ -1,0 +1,60 @@
+###  Kworld 7131 PCI TV Card
+###  (PVR-TV 7131 SE) 
+#
+#
+#Modprobe Blacklist
+sudo vim /etc/modprobe.d/blacklist.conf
+
+# Module status
+lsmod | grep saa
+
+# Driver Load
+sudo rmmod -f saa7134_alsa
+sudo modprobe -r saa7134_alsa
+sudo rmmod -f saa7134
+sudo modprobe saa7134 card=65 tuner=54 i2c_scan=1
+sudo modprobe saa7134 alsa=1 card=65 tuner=54 i2c_scan=1
+
+# Sonido + TV
+xawtv &
+tvtime | arecord -D hw:1,0 -r 32000 -c 2 -f S16_LE | aplay - &
+tvtime --frequencies=custom | arecord -D hw:1,0 -r 32000 -c 2 -f S16_LE | aplay - &
+
+# Watch with mplayer
+mplayer tv://$channel -tv driver=v4l2:device=/dev/video0:norm=NTSC:chanlist=us-bcast:alsa:\
+adevice=hw.1,0:amode=1:audiorate=32000:forceaudio:volume=100:immediatemode=0
+
+# Sonido + Radio
+padsp gqradio | arecord -D hw:1,0 -r 32000 -c 2 -f S16_LE | aplay - &
+rhythmbox | arecord -D hw:1,0 -r 32000 -c 2 -f S16_LE | aplay - &
+mplayer -rawaudio rate=32000 radio://2/capture \
+        -radio adevice=hw=1.0:arate=32000:channels=104.4=Sibir,103.9=Maximm
+
+# Remote Control
+yum install lirc
+
+# Check Module loading
+dmesg | grep saa
+
+# Sound Fix Procedure
+lspci | grep SAA
+#    It will output something like that :
+#    02:00.0 Multimedia controller: Philips Semiconductors SAA7131/SAA7133/SAA7135 Video Broadcast Decoder (rev d1)
+#    02:00.0 is the address of the card.
+
+#    $ LANG=C pactl list | grep -A2 'Source #' | grep 'Name: ' | cut -d" " -f
+LANG=C pactl list | grep -A2 alsa | grep 'Name: ' | cut -d: -f 2
+LANG=C pactl list | grep -A2 alsa | grep 'Name: ' | cut -d' ' -f 2
+
+#    now select your tv card alsa_input.pciXXXXXXXXXXXXXXX
+#    The source name to use is the one with the right PCI address. Here the third one: alsa_input.pci-0000_04_08.0.analog-stereo
+
+#    Edit the file /etc/pulse/default.pa with your favorite text editor: 
+sudo vim /etc/pulse/default.pa
+#    Add the following line at the end of the file (replacing source with the one you found):
+# load-module module-loopback source=alsa_input.pci-0000_02_00.0.analog-stereo
+
+#    Restart Pulseaudio 
+pulseaudio -k
+
+# (Comment line just inserted in  /etc/pulse/default.pa)

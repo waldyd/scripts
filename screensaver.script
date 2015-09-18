@@ -1,0 +1,13 @@
+# Disable Screen Off
+## Status
+gsettings get org.gnome.settings-daemon.plugins.power sleep-display-ac 
+gsettings get org.gnome.settings-daemon.plugins.power sleep-display-battery
+gsettings get org.gnome.desktop.session idle-delay
+
+## Recursive Status
+gsettings list-recursively org.gnome.settings-daemon.plugins.power
+gsettings list-recursively org.gnome.desktop.session
+
+## Disable
+gsettings set org.gnome.settings-daemon.plugins.power sleep-display-ac 0
+gsettings set org.gnome.desktop.session idle-delay 0

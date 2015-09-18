@@ -1,0 +1,8 @@
+# Can't find kernel headers
+sudo yum install kernel-devel
+
+# Can't find C header files SOLUTION
+sudo cp /usr/include/linux/version.h /lib/modules/<kernel version>/build/include/linux/
+
+# GNOME Freezes
+pkill -9 gnome-shell

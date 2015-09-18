@@ -1,0 +1,2 @@
+# A representative Nmap scan
+nmap -A -T4 172.16.0.*

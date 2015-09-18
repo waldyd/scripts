@@ -1,0 +1,4 @@
+#Get FTP Folder Recursively
+## alongas
+## longas07
+wget -r ftp://<user>:<pass>@ahlongas07.dyndns.org/

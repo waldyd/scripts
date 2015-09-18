@@ -1,0 +1,3 @@
+# CAMx 6.2
+## Compilation
+make COMPILER=pgf CONFIG=simeca MPI=mpich3 2>&1 | tee Makefile.out

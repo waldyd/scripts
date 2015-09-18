@@ -1,0 +1,76 @@
+#!/bin/bash
+
+case "$1" in
+## Configure Proxy (UNAL) proxy.medellin.unal.edu.co
+#gsettings set org.gnome.system.proxy use-same-proxy true
+#gsettings set org.gnome.system.proxy.http host '168.176.97.44'
+#gsettings set org.gnome.system.proxy.http port 8080
+#gsettings set org.gnome.system.proxy.ftp host '168.176.97.44'
+#gsettings set org.gnome.system.proxy.ftp port 8080
+#gsettings set org.gnome.system.proxy.https host '168.176.97.44'
+#gsettings set org.gnome.system.proxy.https port 8080
+## Configure Proxy (AMVA)
+#gsettings set org.gnome.system.proxy use-same-proxy true
+#gsettings set org.gnome.system.proxy.http host '127.0.0.1'
+#gsettings set org.gnome.system.proxy.http port 3128 
+#gsettings set org.gnome.system.proxy.ftp host '127.0.0.1'
+#gsettings set org.gnome.system.proxy.ftp port 3128
+#gsettings set org.gnome.system.proxy.https host '127.0.0.1'
+#gsettings set org.gnome.system.proxy.https port 3128
+
+## Enable - Disable Gnome Proxy 
+none)	gsettings set org.gnome.system.proxy mode 'none'
+	sudo /sbin/restorecon -v /etc/resolv.conf
+	;;
+
+unal)	gsettings set org.gnome.system.proxy use-same-proxy true
+	gsettings set org.gnome.system.proxy.http host '168.176.97.44'
+	gsettings set org.gnome.system.proxy.http port 8080
+	gsettings set org.gnome.system.proxy.ftp host '168.176.97.44'
+	gsettings set org.gnome.system.proxy.ftp port 8080
+	gsettings set org.gnome.system.proxy.https host '168.176.97.44'
+	gsettings set org.gnome.system.proxy.https port 8080
+	gsettings set org.gnome.system.proxy.socks host ''
+	gsettings set org.gnome.system.proxy.socks port 0
+	gsettings set org.gnome.system.proxy mode 'manual'
+	gsettings set org.gnome.system.proxy ignore-hosts "['localhost',  '127.0.0.1']"
+	;;
+
+tor)   	gsettings set org.gnome.system.proxy use-same-proxy true
+        gsettings set org.gnome.system.proxy.http host ''
+        gsettings set org.gnome.system.proxy.http port 0
+        gsettings set org.gnome.system.proxy.ftp host ''
+        gsettings set org.gnome.system.proxy.ftp port 0
+        gsettings set org.gnome.system.proxy.https host ''
+        gsettings set org.gnome.system.proxy.https port 0
+	gsettings set org.gnome.system.proxy.socks host 'localhost'
+	gsettings set org.gnome.system.proxy.socks port 9050
+        gsettings set org.gnome.system.proxy mode 'manual'
+	gsettings set org.gnome.system.proxy ignore-hosts "['localhost',  '127.0.0.1',  '*.metropol.gov.co', '172.16.*.*']"
+        ;;
+
+*) 	gsettings set org.gnome.system.proxy use-same-proxy true
+	gsettings set org.gnome.system.proxy.http host '127.0.0.1'
+	gsettings set org.gnome.system.proxy.http port 3128 
+	gsettings set org.gnome.system.proxy.ftp host '127.0.0.1'
+	gsettings set org.gnome.system.proxy.ftp port 3128
+	gsettings set org.gnome.system.proxy.https host '127.0.0.1'
+	gsettings set org.gnome.system.proxy.https port 3128
+	gsettings set org.gnome.system.proxy.socks host ''
+	gsettings set org.gnome.system.proxy.socks port 0
+        gsettings set org.gnome.system.proxy mode 'manual'
+	gsettings set org.gnome.system.proxy ignore-hosts "['localhost',  '127.0.0.1', '*.metropol.gov.co', '172.16.*.*']"
+   	## Start Daemon, ask for pasword (I), verbose (v)
+   	sudo cntlm -Iv
+   	;;
+esac
+
+# SSH Tunnel
+#ssh -D 3128 -f -C -q -N <targetmachineIP>
+#socks: localhost 3128
+
+## Status - Gnome Proxy 
+#gsettings list-recursively org.gnome.system.proxy
+
+## Restore resolve.conf
+#sudo /sbin/restorecon -v /etc/resolv.conf

@@ -1,0 +1,13 @@
+sudo yum install R
+
+install.packages("RColorBrewer")
+install.packages("ggplot2")
+source("./windrose.r")
+
+require(ggplot2)
+require(RColorBrewer)
+
+spd <- scan()
+test <- scan()
+plot.windrose(spd=spd,dir=dir,spdres=1,dirres=22.5,spdmin=0,spdmax=4)
+

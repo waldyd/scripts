@@ -1,0 +1,12 @@
+#
+sudo umount /dev/sd?
+sudo fdisk /dev/sd?
+sudo mkfs -t vfat|ntfs|... /dev/sd??
+     mkfs.ntfs /dev/sd?
+     mkfs.vfat /dev/sd?
+#
+cfdisk
+
+#
+gparted
+

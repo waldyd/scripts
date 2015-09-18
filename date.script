@@ -1,0 +1,28 @@
+# Query Server
+#
+# 0-2.fedora.pool.ntp.org
+# south-america.pool.ntp.org
+# 0-4.south-america.pool.ntp.org
+# horalegal.sic.gov.co
+# 
+ntpdate -q 0.fedora.pool.ntp.org
+
+# Set Network Time
+sudo ntpdate 0.fedora.pool.ntp.org 1.fedora.pool.ntp.org 2.fedora.pool.ntp.org
+## 1.south-america.pool.ntp.org
+(sudo ntpdate 192.188.53.26)
+(sudo ntpdate horalegal.sic.gov.co)
+(sudo ntpdate amdc01)
+
+# Set time manually
+## set date YYYYMMDD
+sudo date +%Y%m%d -s "20081128"
+## set time %T
+sudo date +%T -s "10:13:13"
+## set hardware time
+sudo hwclock --systohc
+
+# Get time
+date
+## Get Hardware time
+sudo hwclock --show --utc

@@ -1,0 +1,99 @@
+# Configure
+## See Options
+configure -h
+## My system configuration
+configure --prefix=/usr/local \
+--enable-fast=O2 \
+--enable-fortran=yes --enable-cxx \
+--with-device=ch3:nemesis \
+--with-pm=hydra \
+--enable-romio \
+--enable-debuginfo \
+--enable-versioning \
+--enable-threads=multiple --enable-thread-cs=global --enable-refcount=none \
+--enable-mutex-timing --enable-handle-allocation=mutex \
+--with-shared-memory=auto \
+--with-java=/opt/java/jdk1.8.0_51 \
+CC=pgcc CFLAGS=-I"/opt/pgi/linux86-64/15.7/include/CC" MPICHLIB_CFLAGS=-I"/opt/pgi/linux86-64/15.7/include/CC" \
+CXX=pgCC \ `#CXXFLAGS= MPICHLIB_CXXFLAGS=` \
+F77=pgf77 \ `#FFLAGS= MPICHLIB_FFLAGS=` \
+FC=pgfortran \ `#FCFLAGS= MPICHLIB_FCFLAGS=` \
+`#LDFLAGS=  MPICHLIB_LDFLAGS= 	 							# Library, -L<library>` \
+`#LIBS=  MPICHLIB_LIBS= 								# linker, -l<library>` \
+CPPFLAGS="/opt/pgi/linux86-64/15.7/include/CC" \ `#	                                # header, -I<include dir>` 
+
+~/mpich-3.1.4/configure --with-java=/opt/java/jdk1.8.0_51 \
+CC=pgcc \
+CXX=pgCC \
+F77=pgf77 \
+FC=pgfortran
+
+#  --with-pmi=name         Specify the pmi interface for MPICH 
+
+#Some influential environment variables:
+#  MPICHLIB_CPPFLAGS
+#              extra CPPFLAGS used in building MPICH libraries
+#  CPPFLAGS    (Objective) C/C++ preprocessor flags, e.g. -I<include dir> if
+#              you have headers in a nonstandard directory <include dir>
+#  CPP         C preprocessor
+#  LT_SYS_LIBRARY_PATH
+#              User-defined run-time library search path.
+#  CXXCPP      C++ preprocessor
+#  PAMILIBNAME can be used to override the name of the PAMI library (default:
+#              "pami")
+#  MPILIBNAME  can be used to override the name of the MPI library (default:
+#              "mpi")
+#  PMPILIBNAME can be used to override the name of the MPI profiling library
+#              (default: "p$MPILIBNAME")
+#  MPICXXLIBNAME
+#              can be used to override the name of the MPI C++ library
+#              (default: "${MPILIBNAME}cxx")
+#  MPIFCLIBNAME
+#              can be used to override the name of the MPI fortran library
+#              (default: "${MPILIBNAME}fort")
+#  MPLLIBNAME  can be used to override the name of the MPL library (default:
+#              "mpl")
+#  OPALIBNAME  can be used to override the name of the OpenPA library (default:
+#              "opa")
+#  AR_FLAGS    AR command flags
+#  GCOV        name/path for the gcov utility
+#
+#  --enable-timer-type=name - Select the timer to use for MPI_Wtime and
+#                             internal timestamps.
+#        gethrtime          - Solaris timer (Solaris systems only)
+#        clock_gettime      - Posix timer (where available)
+#        gettimeofday       - Most Unix systems
+#        linux86_cycle      - Linux x86; returns cycle counts, not time in seconds*
+#        gcc_ia64_cycle     - IPF ar.itc timer*
+#	mach_absolute_time - Mach absolute time (alternative to clock_gettime
+#                             for OSX)
+#        device - The timer is provided by the device
+#
+#        *Note that the cycle timers are intended to be used by MPICH
+#        developers for internal low-level timing.  Normal users should
+#        not use these as they are not guaranteed to be accurate in
+#        certain situations.
+#
+#        linuxalpha_cycle is no longer supported.
+#
+#  --enable-yield          choose a method to yield the processor in busy
+#                          loops. Available methods are: sched_yield, yield,
+#                          select, usleep, sleep, nothing
+#
+
+#  --with-device=name      Specify the communication device for MPICH
+#  --with-pmi=name         Specify the pmi interface for MPICH
+#  --with-pm=name          Specify the process manager for MPICH. "no" or
+#                          "none" are valid values. Multiple process managers
+#                          may be specified as long as they all use the same
+#                          pmi interface by separating them with colons. The
+#                          mpiexec for the first named process manager will be
+#                          installed. Example: "--with-pm=hydra:gforker" builds
+#                          the two process managers hydra, and gforker; only
+#                          the mpiexec from hydra is installed into the bin
+#                          directory.
+
+make 2>&1 | tee make.txt
+sudo -i make install | tee make_install.txt
+sudo -i make install PACKAGE=mpich-3.1.4 | tee make_install_package.txt
+sudo -i make installcheck PACKAGE=mpich-3.1.4 | tee make_install_package_check.txt

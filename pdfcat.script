@@ -1,0 +1,31 @@
+# Cat PDF
+## gs
+gs -q -sPAPERSIZE=letter -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=Certificados\ Académicos\ 2012.pdf Certificados\ Académicos.pdf Certificación\ Radares.pdf
+
+## pdftk
+pdftk initial.pdf stamped.pdf cat output 'ADS_2_FT_modelo_acta_liquidacion_mutuo_acuerdo (Waldyd Alvarez ODS 128)'.pdf
+
+# Merge pdf
+## watermark
+pdftk output.pdf stamp Signature.pdf output stamped.pdf
+composite -watermark 100x100 -gravity South Signature.pdf BALANCE\ GENERAL\ INICIAL\ E-NWAVE.pdf output.pdf
+
+## qpdf
+qpdf --empty --pages output.pdf 1 Signature.pdf 1 -- stamped.pdf
+
+# JPG to PDF
+# imagemagik
+convert *.jpg archivo.pdf
+
+# PDF to TIFF/TIFF to PDF
+# gs
+gs -q -dNOPAUSE -sDEVICE=tiffg4 "-r150x150" -sOutputFile=a.tif a.pdf -c quit
+tiff2ps -2 a.tif | gs -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile=a.pdf - -c quit
+
+# imagemagik
+convert -quality 100 -density 150x150 a.pdf a.tiff
+
+# Reduce PDF Size
+convert -quality 5 -compress JPEG input.pdf output.pdf
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -o new_file.pdf original_file.pdf
+# Quality level settings are "/screen," the lowest resolution and lowest file size, but fine for viewing on a screen; "/ebook," a mid-point in resolution and file size; "/printer" and "/prepress," high-quality settings used for printing PDFs.

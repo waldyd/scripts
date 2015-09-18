@@ -1,0 +1,33 @@
+# Forticlient VPN
+sudo app/forticlientsslvpn_<version>/forticlientsslvpn &
+(sudo app/forticlientsslvpn_4.4.2267/forticlientsslvpn &)
+
+# Restore resolve.conf
+sudo /sbin/restorecon -v /etc/resolv.conf
+sudo ifconfig <if> down up
+(sudo ifconfig enp0s29f7u2c4i2 down up)
+
+# AMVA VPN
+sudo su -c 'cat app/forticlientsslvpn_<version>/resolve-amva.conf > /etc/resolv.conf'
+(sudo su -c 'cat app/forticlientsslvpn_4.0.2254/resolve-amva.conf > /etc/resolv.conf')
+
+# VPN UPB
+# [waldyd@localhost-live ~]$ nmap -A -T4 vpn-medellin.upb.edu.co
+#
+# Starting Nmap 6.45 ( http://nmap.org ) at 2015-06-16 18:41 COT
+# Nmap scan report for vpn-medellin.upb.edu.co (200.3.145.247)
+# Host is up (0.0053s latency).
+# rDNS record for 200.3.145.247: u145-247.upb.edu.co
+# Not shown: 998 filtered ports
+# PORT    STATE  SERVICE  VERSION
+# 113/tcp closed ident
+# 443/tcp open   ssl/http PanWeb (Palo Alto Networks PA-5050 firewall http admin)
+# |_http-methods: No Allow or Public header in OPTIONS response (status code 400)
+# | http-robots.txt: 1 disallowed entry 
+# |_/
+# |_http-title: Site doesn't have a title (text/html).
+# | ssl-cert: Subject: commonName=*.upb.edu.co/organizationName=UNIVERSIDAD PONTIFICIA BOLIVARIANA/stateOrProvinceName=Antioquia/countryName=CO
+# | Not valid before: 2014-01-22T00:00:00+00:00
+# |_Not valid after:  2017-01-21T23:59:59+00:00
+# Service Info: Device: firewall; CPE: cpe:/h:paloalto:pa-5050
+#

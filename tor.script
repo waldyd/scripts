@@ -1,0 +1,3 @@
+# Start TOR
+systemctl start  tor.service #service tor start
+app/tor-browser_en-US/start-tor-browser
