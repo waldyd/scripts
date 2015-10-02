@@ -1,0 +1,11 @@
+# List users
+cat /etc/passwd
+
+# Create user
+useradd -c 'SIMECA' -m -d simeca -p '<pass>' -U simeca
+
+## Create user in chroot directory
+useradd -c 'SIMECA' -m -d simeca -R <chroot path> -p '<pass>' -U simeca
+
+# Define user pass
+passwd <user>

@@ -1,6 +1,7 @@
 # HDF
 ## HDF5 Building
 ./configure --prefix=/usr/local/hdf5 \
+--enable-fortran \
 CC=pgcc \
 CXX=pgCC \
 F77=pgf77 \
@@ -8,5 +9,8 @@ FC=pgfortran
 
 make
 make check
-sudo -i make install
-sudo -i make check-install
+sudo -i su
+make install
+make check-install
+
+##HDF4 Building

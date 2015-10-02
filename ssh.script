@@ -11,8 +11,9 @@ cd $HOME/.ssh && ln -s authorized_keys2 authorized_keys
 
 ## Client
 ssh -i $HOME/.ssh/id_dsa server
-chmod 0600 .ssh/config
 vi .ssh/config
 ### $HOME/.ssh/config
 	Host <server>
 		IdentityFile ~/.ssh/id_dsa
+
+chmod 0600 .ssh/config

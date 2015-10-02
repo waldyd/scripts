@@ -31,6 +31,7 @@ while : ; do iwlist wlan0 scan | grep -E 'Signal'; sleep 0.1; done;
 wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip
 
 # Connect CLI
+nmcli device wifi list
 nmcli dev wifi connect Guillermo*.
 
 nmcli con list
