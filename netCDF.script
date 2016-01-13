@@ -1,17 +1,129 @@
 # Build
 ##NetCDF-C
-./configure --prefix=/usr/local \
+# ✔
+./configure --prefix=/usr/local/netcdf/c \
 CC=pgcc \
---disable-netcdf-4 \
---enable-hdf4 
+LDFLAGS=-L/usr/local/hdf5/lib \
+CPPFLAGS=-I/usr/local/hdf5/include
+
+# ✔
+./configure --prefix=/usr/local/netcdf/c \
+CC=pgcc \
+CFLAGS=-fpic \
+LDFLAGS=-L/usr/local/hdf5/lib \
+CPPFLAGS="-I/usr/local/hdf5/include"
+
+# ✔
+./configure --prefix=/usr/local/netcdf/c \
+CC=pgcc \
+LDFLAGS=-L/usr/local/hdf5/lib \
+CPPFLAGS="-I/usr/local/hdf5/include -fpic"
 
 make check
 make install
 
 ## NetCDF-fortran
-./configure --prefix=/usr/local \
+### 4.4.2
+./configure --prefix=/usr/local/netcdf/fortran \
+--disable-shared \
 CC=pgcc \
-FC=pgfortran F77=pgf77
+CPPFLAGS="-I/usr/local/hdf5/include -fpic" \
+FC=pgfortran \
+F77=pgfortran \
+LDFLAGS=-L/usr/local/hdf5/lib 
+
+#### ✔
+./configure --prefix=/usr/local/netcdf/fortran \
+--disable-v2 \
+CC=pgcc \
+FC=pgfortran \
+F77=pgfortran \
+CPPFLAGS=-I/usr/local/netcdf/c/include \ 
+LDFLAGS=-L/usr/local/netcdf/c/lib 
+
+./configure --prefix=/usr/local/netcdf/fortran \
+CC=gcc \
+FC=gfortran \
+F77=gfortran
 
 make check
 make install
+
+### 4.0
+./configure --prefix=/usr/local/netCDF/4.0/ \
+CC=pgcc \
+CXX=pgcpp \
+FC=pgf90 \
+F77=pgf77
+
+### ✔✔✔
+./configure --prefix=/usr/local \
+CC=gcc \
+CXX=g++ \
+FC=pgf90 \
+F77=pgf77
+
+make check
+make install
+
+###  --enable-netcdf-4       build with netcdf-4 (HDF5 is required)
+###  --enable-dap            build with DAP client (requires C++)
+###  --enable-cxx-4          build with new netcdf-4 C++ API
+###  --enable-hdf5-convert   have HDF5 do data conversions instead of netCDF-4
+
+###  --with-hdf5=<directory> Specify location of HDF5 library. Configure will
+###                          expect to find subdirs include and lib.
+###  --with-zlib=<directory> Specify location of ZLIB library. ZLIB is required
+###                          for netCDF-4. Configure will expect to find subdirs
+###                          include and lib.
+###  --with-szlib=<directory>
+###                          Specify location of SZLIB library. SZLIB is not
+###                          required for netCDF-4, but you must specify its
+###                          location if HDF5 was built with SZLIB. Configure
+###                          will expect to find subdirs include and lib.
+###  --netcdf-c-lib=<directory>
+###                          Specify location of netCDF C-only library (only
+###                          valid when --disable-c is also specified).
+###
+
+## netCDF 4.1.2
+./configure --prefix=/usr/local/netCDF/4.1.2/ \
+--with-curl-config=/usr/bin/ \
+--with-curl=/usr/lib64 \
+CC=pgcc \
+CXX=pgCC \
+FC=pgf90 \
+F77=pgf77
+
+./configure --prefix=/usr/local/netCDF/4.1.2/ \
+--with-curl-config=/usr/bin/ \
+--with-curl=/usr/lib64 \
+CC=gcc \
+CXX=g++ \
+FC=gfortran \
+F77=gfortran
+
+make check
+make install
+
+###  --enable-netcdf-4       build with netcdf-4 (HDF5 and zlib required)
+###  --enable-netcdf4        build with netcdf-4 (HDF5 and zlib required)
+###  --enable-hdf4           build netcdf-4 with HDF4 read capability (HDF4, HDF5
+###                          and zlib required)
+###  --with-hdf4=<directory> Specify location of HDF4 library. Configure will
+###                          expect to find subdirs include and lib.
+###  --with-pnetcdf=<directory>
+###                          Specify location of parallel-netcdf library.
+###                          Configure will expect to find subdirs include and
+###                          lib.
+###  --with-hdf5=<directory> Specify location of HDF5 library. Configure will
+###                          expect to find subdirs include and lib.
+###  --with-zlib=<directory> Specify location of ZLIB library. ZLIB is required
+###                          for netCDF-4. Configure will expect to find subdirs
+###                          include and lib.
+###  --with-szlib=<directory>
+###                          Specify location of SZLIB library. SZLIB is not
+###                          required for netCDF-4, but you must specify its
+###                          location if HDF5 was built with SZLIB. Configure
+###                          will expect to find subdirs include and lib.
+###

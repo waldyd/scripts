@@ -8,3 +8,7 @@ sudo killall -9 gnome-shell
 ssh -C -X <remote-machine-IP>
 xinit -- :1
 gnome-session
+
+# Save gnome session
+$ gsettings list-recursively org.gnome.SessionManager
+$ gsettings set org.gnome.SessionManager auto-save-session-one-shot true

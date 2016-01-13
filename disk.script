@@ -1,6 +1,8 @@
 # Disk Format
 ## Check Disk
 fdisk -l /dev/sd<disk id>
+## Filesystem Type
+sudo blkid
 ## Create Partition
 fdisk /dev/sd<disk id>
 ## Format Disk
@@ -21,6 +23,8 @@ vgchange -ay
 ##
 mkdir </mnt/luks-fedora>
 mount <dev/mapper/luks-fedora> </mnt/luks-fedora>
+
+# mhddfs-0.1.39-3.fc22.x86_64 : Fuse-based file system for unifying several mount points into one
 
 # Format USB
 mkfs -t <type> -n <name> </dev/sdd>

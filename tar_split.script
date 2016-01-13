@@ -1,1 +1,4 @@
 tar czv <path> --exclude='<file pattern>' | split -d -b4700MB - <path2/file.tgz>
+
+# Split
+split -n <CHUNKS> -d <filename> '<filename> ' --additional-suffix='<extension>'

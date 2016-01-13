@@ -3,3 +3,24 @@ sudo vi /etc/sysconfig/network-scripts/ifcfg-<connection name>
 sudo nmcli connection up id <connection name>
 sudo nmcli connection down id <connection name>
 sudo systemctl restart network.service #sudo service network restart
+
+# Measure BW 
+$ nload
+$ sudo iftop -n
+$ sudo iptraf
+$ sudo nethogs
+$ bmon
+$ slurm -s -i eth0
+$ tcptrack
+$ vnstat
+ $ vnstat -l -i eth0
+$ bwm-ng
+$ cbm
+$ speedometer -r eth0 -t eth0
+$ sudo pktstat -i eth0 -nt
+$ sudo netwatch -e eth0 -nt
+$ sudo trafshow -i eth0 tcp
+$ netload eth0
+$ ifstat -t -i eth0 0.5
+$ dstat -nt
+$ collectl -sn -oT -i0.5

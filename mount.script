@@ -16,4 +16,7 @@ mount /dev/loop2 /mnt/loop
 sudo kpartx -av <LVM-image-file>
 sudo pvs
 sudo mount /dev/mapper/VolGroup<as pvs showed> /<mount dir>/
+ $ sudo mount /dev/VolGroup00/LogVol00 /mnt/img/simeca/
 
+# CIFS share
+ sudo mount.cifs  //amdocumental01/tramites/ /media/ -o username=nestor.alvarez,domain=areametro

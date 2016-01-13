@@ -118,3 +118,9 @@ org.gnome.system.proxy.socks port 0
 
 # Find NETWORK info
 nmcli dev list
+
+# Add route
+sudo route add -net 192.56.76.0 netmask 255.255.255.0 metric 1024 dev eth0
+
+# Delete GW
+sudo route del -net 0.0.0.0 gw 200.3.144.129

@@ -9,3 +9,9 @@ useradd -c 'SIMECA' -m -d simeca -R <chroot path> -p '<pass>' -U simeca
 
 # Define user pass
 passwd <user>
+
+# Create group
+groupadd <group>
+
+# Add user to group
+usermod -aG <group> <username>

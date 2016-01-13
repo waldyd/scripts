@@ -1,3 +1,22 @@
 # CAMx 6.2
 ## Compilation
 make COMPILER=pgf CONFIG=simeca MPI=mpich3 2>&1 | tee Makefile.out
+
+### Preprocessor
+#### geos2camx
+make DOMAIN=simeca <option>
+./make DOMAIN=2x25 CB05_CF_no_SOA
+
+# 'Acceptable options are:'
+# '  CB05_CF_no_SOA   -- for CB05 gas and CF aerosol mechanism with'
+# '                      GC 43 output species (standard mechanism)'
+# '  CB05_CF_with_SOA -- for CB05 gas and CF aerosol mechanism with'
+# '                      GC 59 output species (SOA mechanim)'
+# '  CB6_CF_no_SOA    -- for CB6 gas and CF aerosol mechanism with'
+# '                      GC 43 output species (standard mechanism)'
+# '  CB6_CF_with_SOA  -- for CB6 gas and CF aerosol mechanism with'
+# '                      GC 59 output species (SOA mechanism)'
+# '  CB6r2_CF_no_SOA  -- for CB6r2 gas and CF aerosol mechanism with'
+# '                      GC 44 output species (standard mechanism)'
+# '  CB6r2_CF_with_SOA-- for CB6r2 gas and CF aerosol mechanism with'
+# '                      GC 59 output species (SOA mechanism)'

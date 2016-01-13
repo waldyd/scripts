@@ -1,5 +1,6 @@
 # HDF
 ## HDF5 Building
+### 1.8.15-patch1
 ./configure --prefix=/usr/local/hdf5 \
 --enable-fortran \
 CC=pgcc \
@@ -7,10 +8,114 @@ CXX=pgCC \
 F77=pgf77 \
 FC=pgfortran
 
+make check
+make
+sudo -i su
+make check-install
+make install
+
+### 1.8.15-patch1 parallel ✔
+./configure --prefix=/usr/local/hdf5p \
+--enable-fortran \
+#--disable-shared \
+--enable-parallel \
+CC=mpicc \
+CXX=mpicxx \
+F77=mpif77 \
+FC=mpif90
+
 make
 make check
 sudo -i su
 make install
+
+
+### 1.8.4-patch1 ✔
+./configure --prefix=/opt/camx/6.2/preprocessor/ramscamx_v6.0/build/hdf5 \
+--enable-fortran \
+CC=pgcc CFLAGS=-D_DEFAULT_SOURCE \
+CXX=pgcpp \
+F77=pgf77 \
+FC=pgfortran FCFLAGS=-fPIC
+
+make check
+make
 make check-install
+make install
+
+### 1.4.5 ✗ 
+./configure --prefix=/opt/camx/6.2/preprocessor/ramscamx_v6.0/build/hdf5 \
+--enable-fortran \
+--enable-hdf5v1_2 \
+CC=pgcc CFLAGS=-D_DEFAULT_SOURCE \
+CXX=pgcpp \
+F77=pgf77 \
+FC=pgfortran 
+
+make check
+make
+make check-install
+make install
+
+
+### 1.2.2 ✗
+CC=pgcc \ 
+CXX=pgcpp \
+F77=pgf77 \
+FC=pgfortran \
+./configure --prefix=/opt/camx/6.2/preprocessor/ramscamx_v6.0/build/hdf5 
+
+make check
+make
+make check-install
+make install
+
+#  --with-hdf4=INC,LIB     Use the HDF4 library
+#  --with-zlib=INC,LIB     Use the GNU zlib compression
+#  --enable-parallel=TYPE  Search for MPI-IO and MPI support files
+
+
+# Using h5dump to create input for h5import
+h5dump -p -o binuin16.h5.bin -b /home/archive/SIGMA-BRAMS-AMVA/anlc/2012/a-A-2012-07-26-060000-g4.h5 > conf.ddl
+h5dump -p -o binuin16.h5.bin -b /home/archive/SIGMA-BRAMS-AMVA/anlc/2012/a-A-2012-07-26-060000-g4.h5| tee conf.ddl
+h5dump -p -d RHKM -o binuin16.h5.bin -b /home/archive/SIGMA-BRAMS-AMVA/anlc/2012/a-A-2012-07-26-060000-g4.h5| tee conf_RHKM.ddl
+
+#HDF5 "/home/archive/SIGMA-BRAMS-AMVA/anlc/2012/a-A-2012-07-26-060000-g4.h5" {
+#DATASET "RHKM" {
+#   DATATYPE  H5T_IEEE_F32LE
+#   DATASPACE  SIMPLE { ( 82, 82, 30 ) / ( 82, 82, 30 ) }
+#   STORAGE_LAYOUT {
+#      CHUNKED ( 82, 82, 30 )
+#      SIZE 461557 (1.748:1 COMPRESSION)
+#    }
+#   FILTERS {
+#      PREPROCESSING SHUFFLE
+#      COMPRESSION DEFLATE { LEVEL 6 }
+#   }
+#   FILLVALUE {
+#      FILL_TIME H5D_FILL_TIME_IFSET
+#      VALUE     
+#   }
+#   ALLOCATION_TIME {
+#      H5D_ALLOC_TIME_INCR
+#   }
+#   DATA {
+#   }
+#}
+#}
+
+#INPUT_CLASS TEXTFP (Text Float Point)
+#INPUT-CLASS TEXTIN (Text Integer)
+cat << ieof > RHKM.conf
+PATH RHKM
+INPUT-CLASS TEXTFP
+RANK 3
+DIMENSION-SIZES 82 82 30
+ieof
+
+h5dump -d RHKM -y /home/archive/SIGMA-BRAMS-AMVA/anlc/2012/a-A-2012-07-26-060000-g4.h5 | tee RHKM.data
+# Remove trailing spaces and comma separators
+h5import RHKM.data -c RHKM.conf -o RHKM.h5
+
 
 ##HDF4 Building
