@@ -1,0 +1,4 @@
+$ chroot <pATH>
+
+# Shared folder between chroot session an host
+$ sudo mount --bind <host filesystem path> <path inside chroot fiesystem>

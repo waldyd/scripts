@@ -1,0 +1,5 @@
+# Initialisation
+sudo dnf install environment-modules
+/usr/share/Modules/bin/add.modules
+source .bash_profile
+module use /usr/share/Modules/modulefiles

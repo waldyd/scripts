@@ -1,0 +1,31 @@
+# Build BRAMS
+## 5.0
+
+#?module swap PrgEnv-cray PrgEnv-pgi
+#?module load hdf5-parallel
+
+cd <...>/build/bin/
+
+#CHEM variable is set in paths.mk
+$ vi paths.mk
+$ vi include.mk.$OPT
+
+# Install HDF
+$ install-hdf.sh
+
+# Configure
+$ ./configure
+
+#make -f Make_model OPT=opt.pgi-cray CHEM=CB07_TUV
+#TO DO: Compile netCDF-fortran and replace line in Make_model:16
+./install.sh 2>&1 | tee make.out
+#make -f Make_model OPT=opt 2>&1 | tee -a make_model.out
+
+#TO DO:
+mpif90 -o /opt/BRAMS-5.0/build/jules3.0-ccatt-brams-5.0-opt-CB07_TUV rammain.o -v -L/opt/BRAMS-5.0/build -ljules3.0-ccatt-brams-5.0-opt-CB07_TUV -L/opt/BRAMS-5.0/build -lutils-2.0-opt -L/opt/BRAMS-5.0/build -lncarg-2.0    -L./.hdf4_libs -lmfhdf -ldf -lz -ljpeg -L/usr/local/hdf5/lib  -lhdf5_fortran 2>&1 | tee link.out 
+
+mpif90 -o /opt/BRAMS-5.0/build/jules3.0-ccatt-brams-5.0-opt-CB07_TUV rammain.o -v -L/opt/BRAMS-5.0/build -ljules3.0-ccatt-brams-5.0-opt-CB07_TUV -lutils-2.0-opt -lncarg-2.0    -L./.hdf4_libs -lmfhdf -ldf -lz -ljpeg -L/usr/local/hdf5/lib  -lhdf5_fortran -L/opt/BRAMS-5.0/src/jules/LIB -ljules_fast  2>&1 | tee link.out 
+
+mpif90 -c /opt/BRAMS-5.0/build/jules3.0-ccatt-brams-5.0-opt-CB07_TUV rammain.o -v -L/opt/BRAMS-5.0/build -ljules3.0-ccatt-brams-5.0-opt-CB07_TUV -lutils-2.0-opt -lncarg-2.0    -L./.hdf4_libs -lmfhdf -ldf -lz -ljpeg -L/usr/local/hdf5/lib  -lhdf5_fortran -L/opt/BRAMS-5.0/src/jules/LIB -ljules_fast -Wl,-noinhibit-exec 2>&1 | tee link_force.out 
+
+pgfortran -o /opt/BRAMS-5.0/build//jules3.0-ccatt-brams-5.0-opt-CB07_TUV rammain.o -fast -O3 -fastsse -Munroll=n:4 -Mipa=fast,inline,safe  -Msmart -I../../src/jules/LIB/MODS/ -I/usr/local/hdf5p/include/ -I../../src/jules/LIB/UTILS/netcdf_dummy/ -L/opt/BRAMS-5.0/build/ -ljules3.0-ccatt-brams-5.0-opt-CB07_TUV /opt/BRAMS-5.0/src/jules/LIB/UTILS/netcdf_dummy/jules_netcdf_dummy.o

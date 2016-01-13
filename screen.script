@@ -1,0 +1,15 @@
+# see all screen sessions
+ls -laR /var/run/screen/
+
+# list all of the screen sessions for a user
+screen -ls
+
+# Present a list of all windows for selection.
+C-a "       (windowlist -b)
+
+# Create a new window with a shell and switch to that window.
+C-a c
+C-a C-c     (screen) 
+
+# Send command to screen session
+$ screen -S <screen session> -X <command>

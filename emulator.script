@@ -1,0 +1,6 @@
+Nestopia.i686 : A portable open source NES/Famicom emulator
+gnuboy-x.i686 : Nintendo GameBoy Color emulator (X version)
+snes9x.i686 : Super Nintendo Entertainment System emulator
+gens-gs.i686 : Sega Genesis, Sega CD, and Sega 32X emulator
+gens.i686 : A Sega Genesis / Sega CD / Sega 32X emulator
+gnuboy-sdl.i686 : Nintendo GameBoy Color emulator (SDL version) /n

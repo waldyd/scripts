@@ -1,0 +1,8 @@
+# Building
+make OPT=opt
+
+
+# Build ncarg dummy library
+cd /opt/rams60/src/utils/2.2/ncargd
+pgf90 -c ncarg_dummy.f90
+ar rs libncarg-2.4.a ncarg_dummy.o

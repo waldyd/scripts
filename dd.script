@@ -1,0 +1,10 @@
+dd if=/dev/<dev> of=/dev/<dev> & pid=$!
+
+while true;
+do
+kill -USR1 $pid
+sleep 10
+done
+
+# Oneliner
+while true; do kill -USR1 $pid; sleep 10; done

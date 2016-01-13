@@ -1,0 +1,11 @@
+# ls*
+$ lshw
+$ lsattr
+$ lsblk        lsb_release
+$ lscpu        lsinitrd     lslocks      lslogins     
+$ lsmod        lsof         
+$ lspci        lspcmcia     lspgpot      
+$ lsusb        lsusb.py
+
+# inxi
+$ inxi -Fx

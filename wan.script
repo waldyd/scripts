@@ -1,0 +1,11 @@
+# Get my public IP
+## DNS
+dig @resolver<1-4>.opendns.com myip.opendns.com +short
+$ dig @resolver1.opendns.com myip.opendns.com +short
+## HTTP
+curl -s http://whatismyip.akamai.com/
+### Text Browser
+lynx --dump http://ipecho.net/plain
+
+# Get IP Location
+curl ipinfo.io/<IP>

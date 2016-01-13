@@ -1,0 +1,21 @@
+# CUPS
+## Install cups-pdf printer
+$ sudo dnf install cups-pdf
+
+## List printer names that lpr can understand
+$ lpstat -p -d
+
+## Print in a command line pipeline
+$ echo "Hello"|lpr -P <printer>
+( echo "Hello"|lpr -P cups-pdf )
+### You can see your PDF printouts in folder specified in the cups-printer conf file.
+### cups-pdf Printer configuration
+$ vi /etc/cups/cups-pdf.conf 
+
+# ENSCRIPT
+$ enscript README -o README.ps
+$ ps2pdf README.ps
+
+# PDF
+## PDF Info
+$ pdfinfo <pdf-file> 

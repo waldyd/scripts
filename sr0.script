@@ -1,0 +1,2 @@
+isoinfo  -d -i /dev/sr0
+cd-info

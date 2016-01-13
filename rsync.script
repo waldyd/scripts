@@ -1,0 +1,1 @@
+$ rsync -rv --exclude=GAMRAM/** --exclude=SOIL_MOISTURE/**  --exclude=SURFACE_DATA_back/ sigma-brams@master.sigma:/home/archive/DATAIN/ ../common/DATAIN/

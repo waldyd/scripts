@@ -1,0 +1,51 @@
+# CUPS status
+systemctl status cups
+
+$ lpstat -l
+$ lpstat -a
+lpstat: No destinations added.
+$ lpstat -p
+lpstat: No destinations added.
+
+## CUPS service restart
+$ systemctl status cups.service
+
+# Install cups-pdf
+## Install PDF printer
+ $ sudo dnf install cups-pdf
+## Add it to CUPS
+ $ sudo lpadmin -p cups-pdf -v cups-pdf:/ -E -P /usr/share/ppd/cupsfilters/Generic-PDF_Printer-PDF.ppd
+## -t   Shows all status information: This is equivalent to using the -r, -d, -c, -v, -a, -p, and -o options.
+ $ lpstat -t
+scheduler is running
+no system default destination
+device for cups-pdf: cups-pdf:/
+cups-pdf accepting requests since Sat 14 Nov 2015 15:01:57 COT
+printer cups-pdf is idle.  enabled since Sat 14 Nov 2015 15:01:57 COT
+
+ $ lpstat -t
+scheduler is running
+system default destination: hp-LaserJet-4250
+device for FS-1370DN: socket://10.38.24.152
+device for hp-LaserJet-4250: usb://HP/LaserJet%204250?serial=CNRXJ75500
+device for Planeacion: socket://172.16.30.52
+device for Proyectos: socket://172.16.30.5
+device for Virtual_PDF_Printer: cups-pdf:/
+FS-1370DN accepting requests since Fri 06 Nov 2015 20:45:06 COT
+hp-LaserJet-4250 accepting requests since Wed 17 Dec 2014 11:40:51 COT
+Planeacion accepting requests since Tue 17 Nov 2015 12:35:08 COT
+Proyectos accepting requests since Tue 17 Nov 2015 11:01:08 COT
+Virtual_PDF_Printer accepting requests since Tue 17 Nov 2015 13:50:58 COT
+printer FS-1370DN is idle.  enabled since Fri 06 Nov 2015 20:45:06 COT
+printer hp-LaserJet-4250 is idle.  enabled since Wed 17 Dec 2014 11:40:51 COT
+printer Planeacion is idle.  enabled since Tue 17 Nov 2015 12:35:08 COT
+	Waiting for printer to finish.
+printer Proyectos is idle.  enabled since Tue 17 Nov 2015 11:01:08 COT
+	Waiting for printer to finish.
+printer Virtual_PDF_Printer is idle.  enabled since Tue 17 Nov 2015 13:50:58 COT
+Virtual_PDF_Printer-329 unknown           1024   Tue 17 Nov 2015 11:08:49 COT
+
+
+## Fit to page
+$ lp -o fit-to-page -d <printer> <file-to-print>
+ $ lp -o fit-to-page -d CUPS-PDF 'AMVA - Soporte de Pago de Aportes noviembre 2015 - 7624145727.pdf'

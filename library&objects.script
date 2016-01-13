@@ -1,0 +1,22 @@
+# Objects
+## List dependencies
+###ar: list object files in archive library (*.a)
+###nm: list symbols: object files, archive library (*.a) and shared library (*.so)
+$ nm *.a
+$ nm *.o
+$ objdump -x *.o
+###readelf: list symbols in shared library
+$ readelf -d
+## *.so Exported sumbols
+$ nm -D *.so
+
+# Library
+
+##library dependencies of an executable
+###ldd - print shared library dependencies
+ldd /path/to/program
+objdump -p /path/to/program | grep NEEDED
+
+##shared library dependencies of a running process
+sudo pldd <PID>
+sudo pmap <PID>

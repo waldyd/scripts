@@ -1,0 +1,2 @@
+# Stop/Start Licence Manager
+sudo /opt/pgi/linux86-64/15.7/bin/lmgrd.rc stop

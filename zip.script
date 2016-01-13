@@ -1,0 +1,5 @@
+# List
+unzip -l <file>
+
+# Unzip certain file
+$ unzip <file.zip> <compressed file name> -d <extract dir>

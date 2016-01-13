@@ -1,0 +1,4 @@
+# JULES Building
+## 3.0
+make COMPILER=pgf BUILD=fast CDFDUMMY=true
+
